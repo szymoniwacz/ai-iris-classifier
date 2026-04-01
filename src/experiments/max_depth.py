@@ -22,11 +22,13 @@ def run():
         train_accuracy = accuracy_score(y_train, y_train_pred)
         test_accuracy = accuracy_score(y_test, y_test_pred)
 
-        results.append({
-            "depth": depth,
-            "train_accuracy": train_accuracy,
-            "test_accuracy": test_accuracy,
-        })
+        results.append(
+            {
+                "depth": depth,
+                "train_accuracy": train_accuracy,
+                "test_accuracy": test_accuracy,
+            }
+        )
 
     # --- chart ---
     depths_plot = [r["depth"] if r["depth"] is not None else 6 for r in results]

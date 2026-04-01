@@ -4,7 +4,6 @@ from src.experiments.max_depth import run as run_max_depth_experiment
 from src.predictor import predict
 from src.trainer import train
 
-
 AVAILABLE_COMMANDS = (
     "train",
     "experiment-max-depth",

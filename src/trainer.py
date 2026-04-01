@@ -7,7 +7,6 @@ from sklearn.metrics import accuracy_score
 from src.data_loader import load_data
 from src.model_factory import create_model
 
-
 MODEL_PATH = Path("artifacts/model.joblib")
 
 
@@ -21,15 +20,9 @@ def train():
     accuracy = accuracy_score(y_test, y_pred)
 
     iris = load_iris()
-    payload = {
-        "model": model,
-        "class_names": iris.target_names.tolist()
-    }
+    payload = {"model": model, "class_names": iris.target_names.tolist()}
 
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(payload, MODEL_PATH)
 
-    return {
-        "accuracy": accuracy,
-        "model_path": str(MODEL_PATH)
-    }
+    return {"accuracy": accuracy, "model_path": str(MODEL_PATH)}
