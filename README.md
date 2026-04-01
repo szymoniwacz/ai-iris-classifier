@@ -88,6 +88,10 @@ Why:
     depth=5, train=0.992, test=1.000
     depth=None, train=1.000, test=1.000
 
+### Plot
+
+![max depth plot](images/max_depth_plot.png)
+
 ### Interpretation
 
 | Observation | Meaning |

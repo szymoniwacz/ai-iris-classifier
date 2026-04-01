@@ -41,6 +41,8 @@ def handle_train(_args):
 def handle_experiment_max_depth(_args):
     results = run_max_depth_experiment()
     print("Experiment completed.")
+    print("Plot saved to: artifacts/max_depth_plot.png")
+
     for row in results:
         print(
             f"depth={row['depth']}, "
