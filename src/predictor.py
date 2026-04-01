@@ -6,7 +6,7 @@ import joblib
 MODEL_PATH = Path("artifacts/model.joblib")
 
 
-def load_model():
+def load_payload():
     if not MODEL_PATH.exists():
         raise FileNotFoundError(
             "Model file not found. Run training first: python -m src.cli train"
@@ -16,6 +16,12 @@ def load_model():
 
 
 def predict(sample):
-    model = load_model()
+    payload = load_payload()
+
+    model = payload["model"]
+    class_names = payload["class_names"]
+
     prediction = model.predict([sample])
-    return int(prediction[0])
+    predicted_class_index = int(prediction[0])
+
+    return class_names[predicted_class_index]

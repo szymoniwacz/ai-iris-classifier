@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import joblib
+from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
 
 from src.data_loader import load_data
@@ -19,8 +20,14 @@ def train():
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
 
+    iris = load_iris()
+    payload = {
+        "model": model,
+        "class_names": iris.target_names.tolist()
+    }
+
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump(model, MODEL_PATH)
+    joblib.dump(payload, MODEL_PATH)
 
     return {
         "accuracy": accuracy,
