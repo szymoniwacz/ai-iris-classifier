@@ -40,16 +40,14 @@ Features:
 ## How to run
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/iris-classifier.git
-cd iris-classifier
+git clone https://github.com/szymoniwacz/ai-iris-classifier.git
+cd ai-iris-classifier
 
 python3 -m venv venv
 source venv/bin/activate  # macOS / Linux
 # venv\Scripts\activate   # Windows
 
 pip install -r requirements.txt
-
-jupyter notebook
 ```
 
 ---
@@ -81,12 +79,21 @@ Why:
 
 ### Example output
 
-    depth=1, train=0.675, test=0.633
-    depth=2, train=0.950, test=0.967
-    depth=3, train=0.958, test=1.000
-    depth=4, train=0.975, test=1.000
-    depth=5, train=0.992, test=1.000
-    depth=None, train=1.000, test=1.000
+    depth=1 | train=0.667 | test=0.667
+    depth=2 | train=0.967 | test=0.933
+    depth=3 | train=0.983 | test=0.967
+    depth=4 | train=0.992 | test=0.933
+    depth=5 | train=1.000 | test=0.933
+    depth=None | train=1.000 | test=0.933
+
+    Best result:
+    - max_depth = 3
+    - test accuracy = 0.967
+
+    Interpretation:
+    - depth 1 → underfitting
+    - depth 3 → best generalization
+    - deeper → overfitting
 
 ### Plot
 
