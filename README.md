@@ -73,6 +73,20 @@ Why:
 
 ---
 
+### 3. max_depth experiments
+
+Tested:
+
+```python
+depths = [1,2,3,4,5,None]
+```
+
+For each:
+- train accuracy
+- test accuracy
+
+---
+
 ## Project structure
 
 ```
