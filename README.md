@@ -73,17 +73,37 @@ Why:
 
 ---
 
-### 3. max_depth experiments
+## Max Depth Experiment
 
-Tested:
+### How to run
 
-```python
-depths = [1,2,3,4,5,None]
-```
+    python -m src.cli experiment-max-depth
 
-For each:
-- train accuracy
-- test accuracy
+### Example output
+
+    depth=1, train=0.675, test=0.633
+    depth=2, train=0.950, test=0.967
+    depth=3, train=0.958, test=1.000
+    depth=4, train=0.975, test=1.000
+    depth=5, train=0.992, test=1.000
+    depth=None, train=1.000, test=1.000
+
+### Interpretation
+
+| Observation | Meaning |
+|---|---|
+| depth=1 | model is too simple |
+| depth=2 | strong improvement |
+| depth >= 3 | perfect test accuracy |
+| train keeps increasing | model becomes more complex |
+
+### Conclusion
+
+For this dataset, deeper trees still generalize well.
+
+The Iris dataset is simple, so increasing `max_depth` does not reduce test accuracy here.
+
+However, higher depth increases model complexity and may cause overfitting on more complex datasets.
 
 ---
 

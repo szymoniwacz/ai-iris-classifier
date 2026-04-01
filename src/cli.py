@@ -42,7 +42,11 @@ def handle_experiment_max_depth(_args):
     results = run_max_depth_experiment()
     print("Experiment completed.")
     for row in results:
-        print(f"depth={row['depth']}, accuracy={row['accuracy']:.3f}")
+        print(
+            f"depth={row['depth']}, "
+            f"train={row['train_accuracy']:.3f}, "
+            f"test={row['test_accuracy']:.3f}"
+        )
 
 
 def handle_predict(args):

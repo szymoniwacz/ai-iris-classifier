@@ -8,19 +8,24 @@ def run():
     X_train, X_test, y_train, y_test = load_data()
 
     depths = [1, 2, 3, 4, 5, None]
-
     results = []
 
     for depth in depths:
         model = create_model(max_depth=depth)
         model.fit(X_train, y_train)
 
-        y_pred = model.predict(X_test)
-        accuracy = accuracy_score(y_test, y_pred)
+        train_predictions = model.predict(X_train)
+        test_predictions = model.predict(X_test)
 
-        results.append({
-            "depth": depth,
-            "accuracy": accuracy
-        })
+        train_accuracy = accuracy_score(y_train, train_predictions)
+        test_accuracy = accuracy_score(y_test, test_predictions)
+
+        results.append(
+            {
+                "depth": depth,
+                "train_accuracy": train_accuracy,
+                "test_accuracy": test_accuracy,
+            }
+        )
 
     return results
