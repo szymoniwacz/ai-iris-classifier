@@ -2,7 +2,11 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
-from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
+from sklearn.metrics import (
+    ConfusionMatrixDisplay,
+    classification_report,
+    confusion_matrix,
+)
 
 from src.data_loader import load_data
 from src.model_factory import create_model
@@ -23,6 +27,7 @@ def run():
 
     iris = load_iris()
     labels = iris.target_names
+    report = classification_report(y_test, y_pred, target_names=labels)
 
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -41,4 +46,5 @@ def run():
         "matrix": matrix,
         "labels": labels,
         "plot_path": str(PLOT_PATH),
+        "classification_report": report,
     }

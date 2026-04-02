@@ -46,6 +46,10 @@ def format_confusion_matrix_result(result):
         lines.append("- No class confusions detected")
 
     lines.append("")
+    lines.append("Classification report:")
+    lines.extend(result["classification_report"].splitlines())
+
+    lines.append("")
     lines.append(f"Plot saved to: {plot_path}")
 
     return "\n".join(lines)

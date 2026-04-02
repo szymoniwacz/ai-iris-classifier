@@ -143,6 +143,25 @@ Added confusion matrix to better understand model behavior.
 
 Accuracy shows overall performance, but confusion matrix shows **where the model makes mistakes**.
 
+The experiment also prints a classification report. It gives a per-class breakdown of:
+* `precision` — of all samples predicted as class X, how many were correct
+* `recall` — of all true samples of class X, how many were found
+* `F1` — the harmonic average of precision and recall, useful when classes are imbalanced
+
+Example classification report:
+
+```text
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        10
+  versicolor       0.90      0.90      0.90        10
+   virginica       1.00      1.00      1.00        10
+
+    accuracy                           0.97        30
+   macro avg       0.97      0.97      0.97        30
+weighted avg       0.97      0.97      0.97        30
+```
+
 Example output:
 
 ```text
@@ -175,6 +194,7 @@ python -m src.cli experiment-confusion-matrix
 Output:
 
 * formatted confusion matrix in terminal
+* classification report in terminal
 * plot saved to `artifacts/confusion_matrix_plot.png`
 
 Example plot:
@@ -193,9 +213,9 @@ Example plot:
 
 ---
 
-## Next steps
+## Planned improvements
 
-* Add classification report (precision, recall, F1)
-* Compare models (Decision Tree vs k-NN)
-* Try Logistic Regression
-* Extend experiments with more datasets
+* Polish current experiments and document results
+* Review and improve documentation/examples for the classification report output
+* Make sure saved artifacts are generated consistently
+* Keep the repo structure clean and CLI-first
