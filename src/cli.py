@@ -1,12 +1,15 @@
 import sys
 
+from src.experiments.confusion_matrix import run as run_confusion_matrix_experiment
 from src.experiments.max_depth import run as run_max_depth_experiment
+from src.formatters.confusion_matrix_formatter import format_confusion_matrix_result
 from src.predictor import predict
 from src.trainer import train
 
 AVAILABLE_COMMANDS = (
     "train",
     "experiment-max-depth",
+    "experiment-confusion-matrix",
     "predict",
 )
 
@@ -15,6 +18,7 @@ def print_usage():
     print("Usage:")
     print("  python -m src.cli train")
     print("  python -m src.cli experiment-max-depth")
+    print("  python -m src.cli experiment-confusion-matrix")
     print("  python -m src.cli predict 5.1 3.5 1.4 0.2")
 
 
@@ -50,6 +54,11 @@ def handle_experiment_max_depth(_args):
         )
 
 
+def handle_experiment_confusion_matrix(_args):
+    result = run_confusion_matrix_experiment()
+    print(format_confusion_matrix_result(result))
+
+
 def handle_predict(args):
     try:
         sample = validate_predict_args(args)
@@ -66,6 +75,7 @@ def handle_predict(args):
 COMMAND_HANDLERS = {
     "train": handle_train,
     "experiment-max-depth": handle_experiment_max_depth,
+    "experiment-confusion-matrix": handle_experiment_confusion_matrix,
     "predict": handle_predict,
 }
 

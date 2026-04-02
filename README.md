@@ -3,37 +3,62 @@
 ## Goal
 
 Understand how a Decision Tree works in practice:
-- how it splits data
-- how `max_depth` affects performance
-- how overfitting appears
 
-This project is focused on learning by experiments, not just theory.
+* how it splits data
+* how `max_depth` affects performance
+* how overfitting appears
+* why accuracy alone is not enough
+
+This project focuses on **learning through experiments**, not just theory.
 
 ---
 
 ## Dataset
 
-- Iris dataset (built into scikit-learn)
-- 150 samples
-- 3 classes:
-  - setosa
-  - versicolor
-  - virginica
+* Iris dataset (built into scikit-learn)
+* 150 samples
+* 3 classes:
+
+  * setosa
+  * versicolor
+  * virginica
 
 Features:
-- sepal length
-- sepal width
-- petal length
-- petal width
+
+* sepal length
+* sepal width
+* petal length
+* petal width
 
 ---
 
 ## Tech Stack
 
-- Python
-- scikit-learn
-- matplotlib
-- Jupyter Notebook
+* Python
+* scikit-learn
+* matplotlib
+
+---
+
+## Project Structure
+
+```bash
+src/
+  cli.py
+  trainer.py
+  predictor.py
+  model_factory.py
+  data_loader.py
+
+  experiments/
+    max_depth.py
+    confusion_matrix.py
+
+  formatters/
+    confusion_matrix_formatter.py
+
+artifacts/
+```
 
 ---
 
@@ -44,130 +69,133 @@ git clone https://github.com/szymoniwacz/ai-iris-classifier.git
 cd ai-iris-classifier
 
 python3 -m venv venv
-source venv/bin/activate  # macOS / Linux
-# venv\Scripts\activate   # Windows
+source venv/bin/activate
 
 pip install -r requirements.txt
 ```
 
 ---
 
-## What I did
+## Available commands
 
-### 1. Basic model
-
-- trained DecisionTreeClassifier
-- default parameters
-
-### 2. Train / test split
-
-```python
-train_test_split(X, y, test_size=0.2, random_state=42)
+```bash
+python -m src.cli train
+python -m src.cli predict 5.1 3.5 1.4 0.2
+python -m src.cli experiment-max-depth
+python -m src.cli experiment-confusion-matrix
 ```
 
-Why:
-- simulate real-world scenario
-- avoid testing on training data
+---
+
+## Basic Model
+
+* DecisionTreeClassifier
+* Default experiment with `max_depth=3`
+
+Result:
+
+* high accuracy on test data
+* simple and interpretable model
 
 ---
 
 ## Max Depth Experiment
 
-### How to run
+Tested how tree depth affects performance.
 
-    python -m src.cli experiment-max-depth
+Example output:
 
-### Example output
+```text
+depth=1 | train=0.667 | test=0.667
+depth=2 | train=0.967 | test=0.933
+depth=3 | train=0.983 | test=0.967
+depth=4 | train=0.992 | test=0.933
+depth=5 | train=1.000 | test=0.933
+depth=None | train=1.000 | test=0.933
+```
 
-    depth=1 | train=0.667 | test=0.667
-    depth=2 | train=0.967 | test=0.933
-    depth=3 | train=0.983 | test=0.967
-    depth=4 | train=0.992 | test=0.933
-    depth=5 | train=1.000 | test=0.933
-    depth=None | train=1.000 | test=0.933
+Interpretation:
 
-    Best result:
-    - max_depth = 3
-    - test accuracy = 0.967
+* Best generalization at depth=3
+* Increasing depth improves training accuracy
+* Too large depth leads to overfitting (train=1.0, test drops)
 
-    Interpretation:
-    - depth 1 → underfitting
-    - depth 3 → best generalization
-    - deeper → overfitting
+Run:
 
-### Plot
+```bash
+python -m src.cli experiment-max-depth
+```
 
-![max depth plot](images/max_depth_plot.png)
+Output:
 
-### Interpretation
+* accuracy for different depths
+* plot saved to `artifacts/max_depth_plot.png`
 
-| Observation | Meaning |
-|---|---|
-| depth=1 | model is too simple |
-| depth=2 | strong improvement |
-| depth >= 3 | perfect test accuracy |
-| train keeps increasing | model becomes more complex |
+Example plot:
 
-### Conclusion
-
-For this dataset, deeper trees still generalize well.
-
-The Iris dataset is simple, so increasing `max_depth` does not reduce test accuracy here.
-
-However, higher depth increases model complexity and may cause overfitting on more complex datasets.
+![Max Depth Plot](images/max_depth_plot.png)
 
 ---
 
-## Project structure
+## Confusion Matrix
 
-```
-iris-classifier/
-├── notebook.ipynb
-├── README.md
-├── requirements.txt
-└── images/
-    └── tree.png
+Added confusion matrix to better understand model behavior.
+
+Accuracy shows overall performance, but confusion matrix shows **where the model makes mistakes**.
+
+Example output:
+
+```text
+=== Confusion Matrix Experiment ===
+
+actual \ predicted         setosa   versicolor    virginica
+------------------------------------------------------------
+setosa                         10            0            0
+versicolor                      0            9            1
+virginica                       0            0           10
+
+Summary:
+- Correct predictions: 29/30
+- Mistakes: 1
+- 1 sample(s) of 'versicolor' were predicted as 'virginica'
 ```
 
----
+Interpretation:
 
-## requirements.txt
+* setosa: classified perfectly
+* versicolor: occasionally confused with virginica
+* virginica: classified perfectly
 
+Run:
+
+```bash
+python -m src.cli experiment-confusion-matrix
 ```
-scikit-learn
-matplotlib
-jupyter
-```
+
+Output:
+
+* formatted confusion matrix in terminal
+* plot saved to `artifacts/confusion_matrix_plot.png`
+
+Example plot:
+
+![Confusion Matrix](images/confusion_matrix_plot.png)
 
 ---
 
 ## What I learned
 
-- how Decision Trees split data
-- how to detect overfitting
-- why validation is critical
-- how model complexity impacts performance
+* Accuracy alone is not enough to evaluate a model
+* Confusion matrix helps identify specific classification errors
+* Some classes (versicolor vs virginica) are harder to separate
+* Controlling model complexity (`max_depth`) helps prevent overfitting
+* Clean CLI + experiments structure makes ML code more maintainable
 
 ---
 
 ## Next steps
 
-- compare with k-NN
-- try Logistic Regression
-- add confusion matrix
-- test on different dataset (Wine / Titanic)
-
----
-
-## Notes
-
-This is part of a bigger learning path:
-- building real ML intuition
-- creating GitHub portfolio
-- combining backend + AI skills
-
----
-
-## Author
-
-Szymon Iwacz
+* Add classification report (precision, recall, F1)
+* Compare models (Decision Tree vs k-NN)
+* Try Logistic Regression
+* Extend experiments with more datasets

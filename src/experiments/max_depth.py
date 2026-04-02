@@ -6,7 +6,6 @@ from sklearn.metrics import accuracy_score
 from src.data_loader import load_data
 from src.model_factory import create_model
 
-
 ARTIFACTS_DIR = Path("artifacts")
 PLOT_PATH = ARTIFACTS_DIR / "max_depth_plot.png"
 
