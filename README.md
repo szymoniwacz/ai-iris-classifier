@@ -1,5 +1,7 @@
 # Iris Classifier — Decision Tree Experiments
 
+**Status:** Demo / sandbox for ML experimentation. Not production ready.  
+
 ## Goal
 
 Understand how a Decision Tree works in practice:
@@ -69,7 +71,8 @@ git clone https://github.com/szymoniwacz/ai-iris-classifier.git
 cd ai-iris-classifier
 
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate   # on Linux/macOS
+venv\Scripts\activate      # on Windows
 
 pip install -r requirements.txt
 ```
@@ -219,3 +222,7 @@ Example plot:
 * Review and improve documentation/examples for the classification report output
 * Make sure saved artifacts are generated consistently
 * Keep the repo structure clean and CLI-first
+
+## License
+
+MIT — see [LICENSE](LICENSE)
