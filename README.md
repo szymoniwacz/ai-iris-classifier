@@ -1,6 +1,6 @@
 # Iris Classifier — Decision Tree Experiments
 
-**Status:** Demo / sandbox for ML experimentation. Not production ready.  
+**Status:** Demo / sandbox for ML experimentation. Not production ready. [![Tests](https://github.com/szymoniwacz/ai-iris-classifier/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/szymoniwacz/ai-iris-classifier/actions/workflows/tests.yml)
 
 ## Goal
 
@@ -75,6 +75,12 @@ source venv/bin/activate   # on Linux/macOS
 venv\Scripts\activate      # on Windows
 
 pip install -r requirements.txt
+```
+
+For development:
+
+```bash
+pip install -r requirements-dev.txt
 ```
 
 ---
@@ -222,6 +228,20 @@ Example plot:
 * Review and improve documentation/examples for the classification report output
 * Make sure saved artifacts are generated consistently
 * Keep the repo structure clean and CLI-first
+
+---
+
+## Development
+
+Run tests locally:
+
+```bash
+pytest
+```
+
+CI runs the same test suite in GitHub Actions on every push to `main` and on pull requests.
+
+---
 
 ## License
 
